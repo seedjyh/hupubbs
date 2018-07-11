@@ -105,3 +105,4 @@ venv.bak/
 # pycharm
 /.idea
 /hupubbs/__pycache__
+__pycache__

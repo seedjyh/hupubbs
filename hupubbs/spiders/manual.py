@@ -14,9 +14,13 @@ class BasicSpider(scrapy.Spider):
     start_urls = ['https://bbs.hupu.com/china-soccer']
 
     def parse(self, response):
-        # Get subject URLs and yield Requests
         protocol, url_no_protocol = parse.splittype(response.url)
         host, url_no_host = parse.splithost(url_no_protocol)
+        # Other page URLS
+        for i in range(10):
+            if i > 0:
+                yield Request("%s-%d"%(response.url, i + 1), callback=self.parse)
+        # Get subject URLs and yield Requests
         subject_selector = response.xpath('//*[@class="truetit"]/@href')
         for url in subject_selector.extract():
             yield Request(parse.urljoin(protocol + "://" + host,url), callback=self.parse_item)

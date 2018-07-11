@@ -21,3 +21,16 @@ class HupubbsItem(scrapy.Item):
     server = scrapy.Field()
     date = scrapy.Field()
     pass
+
+class HupubbsSubjectItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    title = scrapy.Field()
+    poster_user_url = scrapy.Field()
+    poster_nickname = scrapy.Field()
+    url = scrapy.Field()
+    project = scrapy.Field()
+    spider = scrapy.Field()
+    server = scrapy.Field()
+    date = scrapy.Field()
+    pass

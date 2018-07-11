@@ -15,4 +15,9 @@ class HupubbsItem(scrapy.Item):
     total_theme_count = scrapy.Field()
     total_reply_count = scrapy.Field()
     today_post_count = scrapy.Field()
+    url = scrapy.Field()
+    project = scrapy.Field()
+    spider = scrapy.Field()
+    server = scrapy.Field()
+    date = scrapy.Field()
     pass

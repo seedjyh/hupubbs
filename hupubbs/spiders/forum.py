@@ -57,6 +57,10 @@ class ForumSpider(scrapy.Spider):
         yield plate_item_loader.load_item()
         # 横向：下一页
         yield Request(self.next_forum_page_url(response.url), self.parse_plate_page)
+        # 纵向：子版块
+        le = LinkExtractor(restrict_xpaths='//div[@id="childBoards"]')
+        for link in le.extract_links(response):
+            yield Request(link.url, self.parse_plate_page)
         # 纵向：当前页所有主题
         le = LinkExtractor(restrict_xpaths='//a[@class="truetit"]')
         links = le.extract_links(response)

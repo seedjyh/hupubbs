@@ -22,6 +22,7 @@ class HupubbsItem(scrapy.Item):
     date = scrapy.Field()
     pass
 
+
 class HupubbsSubjectItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
@@ -37,21 +38,27 @@ class HupubbsSubjectItem(scrapy.Item):
 
 
 class HupubbsUserItem(scrapy.Item):
-    forum_id = scrapy.Field()
+    url_id = scrapy.Field()
     nickname = scrapy.Field()
     signature = scrapy.Field()
 
 
-class HupubbsThreadItem(scrapy.Item):
-    forum_id = scrapy.Field()
-    user_forum_id = scrapy.Field()
+class HupubbsPlateItem(scrapy.Item):
+    name = scrapy.Field()
+    url = scrapy.Field()
+
+
+class HupubbsSubjectItem(scrapy.Item):
+    url_id = scrapy.Field()
+    plate_url = scrapy.Field()
+    user_url_id = scrapy.Field()
     post_time = scrapy.Field()
     title = scrapy.Field()
 
 
 class HupubbsReplyItem(scrapy.Item):
-    thread_forum_id = scrapy.Field()
-    forum_id = scrapy.Field()
-    user_forum_id = scrapy.Field()
+    thread_url_id = scrapy.Field()
+    url_id = scrapy.Field()
+    user_url_id = scrapy.Field()
     post_time = scrapy.Field()
     i_like_sum = scrapy.Field()

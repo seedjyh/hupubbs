@@ -22,3 +22,10 @@ class TestForumSpider(unittest.TestCase):
         spider = ForumSpider()
         self.assertEqual("22907925", spider.thread_id("https://bbs.hupu.com/22907925.html"))
         self.assertEqual("22886870", spider.thread_id("https://bbs.hupu.com/22886870-3.html"))
+
+    def test_plate_page(self):
+        spider = ForumSpider()
+        self.assertEqual(4, spider.plate_page("https://bbs.hupu.com/china-soccer-4"))
+        self.assertEqual(1, spider.plate_page("https://bbs.hupu.com/china-soccer"))
+        self.assertEqual(40, spider.plate_page("https://bbs.hupu.com/hengda-40"))
+        self.assertEqual(1, spider.plate_page("https://bbs.hupu.com/hengda"))

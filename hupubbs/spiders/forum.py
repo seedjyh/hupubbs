@@ -44,6 +44,15 @@ class ForumSpider(scrapy.Spider):
         else:
             return res.groups()[0]
 
+    # 获取版块页URL的当前页码
+    @staticmethod
+    def plate_page(url):
+        res = re.search("-([0-9]+)$", url)
+        if res is None:
+            return 1
+        else:
+            return int(res.groups()[0])
+
     # 爬虫入口，爬取一页并继续下一页
     def parse(self, response):
         return Request(response.url, callback=self.parse_plate_page)
@@ -56,7 +65,8 @@ class ForumSpider(scrapy.Spider):
         plate_item_loader.add_value('url', value=response.url)
         yield plate_item_loader.load_item()
         # 横向：下一页
-        yield Request(self.next_forum_page_url(response.url), self.parse_plate_page)
+        if self.plate_page(response.url) < 10: # 最多爬取前10页的帖子
+            yield Request(self.next_forum_page_url(response.url), self.parse_plate_page)
         # 纵向：子版块
         le = LinkExtractor(restrict_xpaths='//div[@id="childBoards"]')
         for link in le.extract_links(response):

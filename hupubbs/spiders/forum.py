@@ -89,12 +89,12 @@ class ForumSpider(scrapy.Spider):
         # 解析所属版块
         le = LinkExtractor(restrict_xpaths='//div[@itemprop="breadcrumb"]')
         plate_links = le.extract_links(response)
-        plate_link = plate_links[-1]
+        plate_link = plate_links[-1].url
         # 解析发帖人
         user_item_loader = ItemLoader(item=HupubbsUserItem(), selector=selector)
-        user_item_loader.add_xpath('url_id', xpath='.//a[@class="u"]/@href', re='\/([0-9]+)$')
-        user_item_loader.add_xpath('nickname', xpath='.//a[@class="u"]/text()')
-        user_item_loader.add_xpath('signature', xpath='//div[@class="sign"]')
+        user_item_loader.add_xpath('url_id', xpath='.//div[@class="left"]/a[@class="u"]/@href', re='\/([0-9]+)$')
+        user_item_loader.add_xpath('nickname', xpath='.//div[@class="left"]/a[@class="u"]/text()')
+        user_item_loader.add_xpath('signature', xpath='.//div[@class="sign"]/text()')
         user_item = user_item_loader.load_item()
         yield user_item
         # 解析主题帖
@@ -112,7 +112,7 @@ class ForumSpider(scrapy.Spider):
         user_item_loader = ItemLoader(item=HupubbsUserItem(), selector=selector)
         user_item_loader.add_xpath('url_id', xpath='.//div[@class="left"]/a[@class="u"]/@href', re='\/([0-9]+)$')
         user_item_loader.add_xpath('nickname', xpath='.//div[@class="left"]/a[@class="u"]/text()')
-        user_item_loader.add_xpath('signature', xpath='//div[@class="sign"]/text()')
+        user_item_loader.add_xpath('signature', xpath='.//div[@class="sign"]/text()')
         user_item = user_item_loader.load_item()
         yield user_item
         # 解析回帖

@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 CREATE TABLE IF NOT EXISTS `plate` (
     `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(32) NOT NULL,
-    `url` VARCHAR(256) NOT NULL,
+    `url` VARCHAR(128) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY (`name`),
     UNIQUE KEY (`url`)

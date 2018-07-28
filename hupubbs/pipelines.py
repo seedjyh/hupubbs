@@ -21,7 +21,14 @@ class HupubbsPipeline(object):
 
 class MySQLPipeline(object):
     def open_spider(self, spider):
-        self.db = pymysql.connect("127.0.0.1", "root", "123456", "hupubbs")
+        self.db = pymysql.connect(
+            host='127.0.0.1',
+            port=9306,
+            user='root',
+            passwd='123456',
+            db='hupubbs',
+            charset='utf8'
+        )
         self.cursor = self.db.cursor()
 
     def close_spider(self, spider):

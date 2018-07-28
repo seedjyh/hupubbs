@@ -25,6 +25,7 @@ class MySQLPipeline(object):
         self.cursor = self.db.cursor()
 
     def close_spider(self, spider):
+        self.db.commit()
         self.db.close()
 
     def process_item(self, item, spider):
@@ -41,10 +42,9 @@ class MySQLPipeline(object):
         values = (
             item.get('url_id'),
             item.get('nickname'),
-            [str.strip(x) for x in item.get('signature', ['',])], # 签名默认值：空串
+            [str.strip(x) for x in item.get('signature', ['', ])],  # 签名默认值：空串
         )
         self.cursor.execute("INSERT IGNORE INTO user(url_id, nickname, signature) VALUES(%s,%s,%s)", values)
-        self.db.commit()
 
     def process_plate_item(self, item, spider):
         values = (
@@ -52,7 +52,6 @@ class MySQLPipeline(object):
             item.get('url'),
         )
         self.cursor.execute("INSERT IGNORE INTO plate(name, url) VALUES(%s,%s)", values)
-        self.db.commit()
 
     def process_subject_item(self, item, spider):
         values = (
@@ -65,7 +64,6 @@ class MySQLPipeline(object):
         self.cursor.execute(
             "INSERT IGNORE INTO thread(url_id, plate_id, user_id, post_time, title) VALUES(%s, (select id from plate where url=%s), (select id from user where url_id=%s), %s, %s)",
             values)
-        self.db.commit()
 
     def process_reply_item(self, item, spider):
         values = (
@@ -78,4 +76,3 @@ class MySQLPipeline(object):
         self.cursor.execute(
             "INSERT IGNORE INTO reply(thread_id, url_id, user_id, post_time, i_like_sum) VALUES((select id from thread where url_id=%s), %s, (select id from user where url_id=%s), %s, %s)",
             values)
-        self.db.commit()

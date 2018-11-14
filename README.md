@@ -5,7 +5,7 @@
 ## 部署
 
 * clone项目到本地
-* 修改`hupubbs/pipelines.py`里`MySQLPipeline.opoen_spider`里`self.db`里的MySQL连接参数，使其指向自己的mysql服务器。
+* 修改`hupubbs/pipelines.py`里`MySQLPipeline.open_spider`里`self.db`里的MySQL连接参数，使其指向自己的mysql服务器。
 * 在命令行进入项目目录，运行`scrapy crawl hupubbs`。
 
 ## 设计文档
